@@ -1,0 +1,7 @@
+{
+  "name": "ionic-vue3.0-ts-exam",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue"
+}
