@@ -23,9 +23,15 @@ import '@ionic/vue/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 
+
+// 전역상태 불러오기
+import { createGlobalState, globalStateSymbol } from "@/stores"
+
 const app = createApp(App)
   .use(IonicVue)
-  .use(router);
+  .use(router)
+  .provide(globalStateSymbol, createGlobalState());
+  //provide(A, B) : B를 A라는 이름으로 등록하는 함수
   
 router.isReady().then(() => {
   app.mount('#app');

@@ -12,7 +12,7 @@
         </ion-toolbar>
       </ion-header>
     
-      <ExploreContainer name="TEST Tab 1 page" />
+      <ExploreContainer name="TEST Tab 1 page test" />
       <ion-button @click="presentActionSheet" expand="block" size="small">Show Action Sheet</ion-button>
     </ion-content>
   </ion-page>
@@ -23,12 +23,16 @@ import { IonButton, actionSheetController } from '@ionic/vue';
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue';
 import ExploreContainer from '@/components/ExploreContainer.vue';
 import { caretForwardCircle, close, heart, trash, share } from 'ionicons/icons';
+import { useGlobalState } from '@/stores';
 
 export default  {
   name: 'Tab1',
   components: { ExploreContainer, IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonButton },
   setup(){
     async function presentActionSheet() {
+      //전역상태로 셋팅해두어서 어느 페이지에서나 불러올 수 있다.
+      const globalState = useGlobalState();
+
       const actionSheet = await actionSheetController
         .create({
           header: 'Albums',
