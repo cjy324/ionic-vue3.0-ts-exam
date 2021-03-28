@@ -1,5 +1,6 @@
+import { GlobalState } from '@/types'
 import { reactive } from "@vue/reactivity"
-import { inject } from "vue";
+import { inject, computed } from "vue"
 
 //Symbol()
 //'심볼(symbol)'은 유일한 식별자(unique identifier)를 만들고 싶을 때 사용합니다.
@@ -15,14 +16,25 @@ export const globalStateSymbol = Symbol('globalState');
 //전역적으로 사용할 것들 이곳에 등록
 //그리고 types에서도 자료형? 등록 필요
 //전역상태를 셋팅해놓는 이유는 여러 페이지에서 사용하기 위함
-export const createGlobalState = (): GlobalState =>{ 
-  return reactive({
+export const createGlobalState = () => {
+  const globalState: GlobalState = reactive({
     loginedMember: {
       id:0,
       regDate:"",
       updateDate:"",
-    }
+      authLevel:0,
+      cellphoneNo:"",
+      email:"",
+      /* eslint-disable @typescript-eslint/camelcase */
+      extra__thumbImg:"",
+      loginId:"",
+      name:"",
+      nickname:""
+    },
+    isLogined: computed(() => globalState.loginedMember.id != 0)
   });
+
+  return globalState;
 };
 
 //useGlobalState 함수가 GlobalState 객체를 리턴한다
