@@ -1,6 +1,10 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router';
 import { RouteRecordRaw } from 'vue-router';
 import Tabs from '../views/Tabs.vue'
+import { useGlobalStateOnOutsideOfVue } from '@/stores';
+
+//전역변수 가져오기
+const globalState = useGlobalStateOnOutsideOfVue();
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -31,7 +35,8 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: 'login',
-        component: () => import('@/views/member/Login.vue')
+        component: () => globalState.isLogined? import('@/views/member/MyPage.vue') : import('@/views/member/Login.vue')
+        // 로그인 상태이면 MyPage로 그렇지 않으면 Login으로
       },
       {
         path: 'join',

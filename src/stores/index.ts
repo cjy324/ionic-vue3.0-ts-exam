@@ -13,29 +13,45 @@ import { inject, computed } from "vue"
 
 export const globalStateSymbol = Symbol('globalState');
 
+class Singleton{
+  static globalState: GlobalState;
+}
+
+
 //전역적으로 사용할 것들 이곳에 등록
 //그리고 types에서도 자료형? 등록 필요
 //전역상태를 셋팅해놓는 이유는 여러 페이지에서 사용하기 위함
 export const createGlobalState = () => {
-  const globalState: GlobalState = reactive({
-    loginedMember: {
-      id:0,
-      regDate:"",
-      updateDate:"",
-      authLevel:0,
-      cellphoneNo:"",
-      email:"",
-      /* eslint-disable @typescript-eslint/camelcase */
-      extra__thumbImg:"",
-      loginId:"",
-      name:"",
-      nickname:""
-    },
-    isLogined: computed(() => globalState.loginedMember.id != 0)
-  });
-
-  return globalState;
+  //만약, Singleton에 globalState가 없으면 다시 생성
+  if( Singleton.globalState == null){
+    const globalState: GlobalState = reactive({
+      loginedMember: {
+        id:0,
+        regDate:"",
+        updateDate:"",
+        authLevel:0,
+        cellphoneNo:"",
+        email:"",
+        /* eslint-disable @typescript-eslint/camelcase */
+        extra__thumbImg:"",
+        loginId:"",
+        name:"",
+        nickname:""
+      },
+      isLogined: computed(() => globalState.loginedMember.id != 0)
+    });
+    Singleton.globalState = globalState;
+  }
+  
+  return Singleton.globalState;
+  
 };
 
 //useGlobalState 함수가 GlobalState 객체를 리턴한다
 export const useGlobalState = (): GlobalState => inject(globalStateSymbol) as GlobalState;
+//다른곳에서 createGlobalState라고 그대로 사용해도 크게 문제는 없음
+//다만, 이해하기 쉽기 위해 useGlobalStateOnOutsideOfVue라고 명명해서 리턴하는 것
+//그리고
+//(): GlobalState => inject(globalStateSymbol) as GlobalState;와
+//createGlobalState는 결국 같은 의미
+export const useGlobalStateOnOutsideOfVue = createGlobalState;
