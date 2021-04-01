@@ -1,10 +1,6 @@
 <template>
   <ion-page>
-    <ion-header>
-      <ion-toolbar>
-        <ion-title>회원 - 로그인</ion-title>
-      </ion-toolbar>
-    </ion-header>
+    <ion-custom-header>회원 - 로그인</ion-custom-header>
     <ion-content :fullscreen="true">
       <ion-header collapse="condense">
         <ion-toolbar>
@@ -52,10 +48,10 @@
 </style>
 
 <script lang="ts">
-import { IonCustomBody, IonCustomLink } from '@/components';
+import { IonCustomHeader, IonCustomBody, IonCustomLink} from '@/components/';
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonLabel, IonInput, IonItem, IonButton } from '@ionic/vue';
 import { useGlobalState } from '@/stores'
-import { reactive } from '@vue/reactivity';
+import { reactive } from 'vue';
 import { useMainApi } from '@/apis';
 import { useRouter } from 'vue-router';
 
@@ -66,10 +62,9 @@ const useLoginFormState = () => {
   })
 }
 
-
 export default  {
   name: 'Login',
-  components: { IonHeader, IonToolbar, IonTitle, IonLabel, IonInput, IonItem, IonButton, IonContent, IonPage, IonCustomBody, IonCustomLink },
+  components: { IonHeader, IonToolbar, IonTitle, IonLabel, IonInput, IonItem, IonButton, IonContent, IonPage, IonCustomHeader, IonCustomBody, IonCustomLink },
   
   
   setup() {
@@ -88,8 +83,8 @@ export default  {
           }
           const authKey = axiosResponse.data.body.authKey;
           const loginedMember = axiosResponse.data.body.member;
-          alert(authKey);
-          //globalState.setLogined(authKey, loginedMember);
+
+          globalState.setLogined(authKey, loginedMember);
           
           router.replace('/');
         });

@@ -4,10 +4,12 @@
 //import  IonCustomBody  from '@/components/IonCustomBody.vue';
 //이런식으로 경로를 전부 적어주었어야 함
 
+import IonCustomHeader from './IonCustomHeader.vue';
 import IonCustomBody from './IonCustomBody.vue';
 import IonCustomLink from './IonCustomLink.vue';
 
 export {
+  IonCustomHeader,
   IonCustomBody,
   IonCustomLink
 }; 

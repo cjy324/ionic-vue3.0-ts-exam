@@ -1,6 +1,7 @@
 import { GlobalState } from '@/types'
 import { reactive } from "@vue/reactivity"
 import { inject, computed } from "vue"
+import { Member } from "@/types";
 
 //Symbol()
 //'심볼(symbol)'은 유일한 식별자(unique identifier)를 만들고 싶을 때 사용합니다.
@@ -24,7 +25,7 @@ class Singleton{
 export const createGlobalState = () => {
   //만약, Singleton에 globalState가 없으면 다시 생성
   if( Singleton.globalState == null){
-    const globalState: GlobalState = reactive({
+    const globalState: any = reactive({
       loginedMember: {
         id:0,
         regDate:"",
@@ -38,8 +39,48 @@ export const createGlobalState = () => {
         name:"",
         nickname:""
       },
-      isLogined: computed(() => globalState.loginedMember.id != 0)
+      authKey: "",
+      isLogined: computed(() => globalState.loginedMember.id != 0),
+      setLogined: function(authKey: string, member: Member) {
+        localStorage.setItem("authKey", authKey);
+        localStorage.setItem("loginedMemberJsonStr", JSON.stringify(member));
+
+        globalState.authKey = authKey;
+
+        globalState.loginedMember = member;
+      },
+      setLogouted: function() {
+        globalState.authKey = "";
+
+        globalState.loginedMember.id = 0;
+        globalState.loginedMember.regDate = "";
+        globalState.loginedMember.updateDate = "";
+        globalState.loginedMember.authLevel = 0;
+        globalState.loginedMember.cellphoneNo = "";
+        globalState.loginedMember.email = "";
+        globalState.loginedMember.extra__thumbImg = "";
+        globalState.loginedMember.loginId = "";
+        globalState.loginedMember.name = "";
+        globalState.loginedMember.nickname = "";
+
+        localStorage.removeItem("authKey");
+        localStorage.removeItem("loginedMemberJsonStr");
+      }
     });
+    const loadLoginInfoFromLocalStorage = () => {
+      const authKey = localStorage.getItem("authKey");
+      const loginedMemberJsonStr = localStorage.getItem("loginedMemberJsonStr");
+
+      if ( !!authKey && !!loginedMemberJsonStr ) {
+        const loginedMember: Member = JSON.parse(loginedMemberJsonStr);
+
+        globalState.setLogined(authKey, loginedMember);
+      }
+    }
+
+    // 이 함수는 브라우저를 열때(혹은 새로고침, F5키 누를 때)마다 1번씩 실행됨
+    loadLoginInfoFromLocalStorage();
+
     Singleton.globalState = globalState;
   }
   
