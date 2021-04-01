@@ -5,7 +5,9 @@
 //이런식으로 경로를 전부 적어주었어야 함
 
 import IonCustomBody from './IonCustomBody.vue';
+import IonCustomLink from './IonCustomLink.vue';
 
 export {
-  IonCustomBody
+  IonCustomBody,
+  IonCustomLink
 }; 
