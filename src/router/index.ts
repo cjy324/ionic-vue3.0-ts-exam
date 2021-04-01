@@ -7,13 +7,13 @@ import { useGlobalStateOnOutsideOfVue } from '@/stores';
 const globalState = useGlobalStateOnOutsideOfVue();
 
 const routes: Array<RouteRecordRaw> = [
-  {
-    path: '/',
+  {     //앨리어싱
+    path: '/', //만약, path가 '/' 이렇게 들어올 경우 '/home/Main'으로 redirect
     redirect: '/home/Main'
   },
   {
-    path: '/home/',
-    component: Tabs,
+    path: '/home/',  //'/home/'로 시작하면 
+    component: Tabs,  //component: Tabs를 사용하라는 의미
     children: [
       {
         path: '',
@@ -29,8 +29,8 @@ const routes: Array<RouteRecordRaw> = [
     path: '/member/',
     component: Tabs,
     children: [
-      {
-        path: '',
+      { 
+        path: '', 
         redirect: '/member/login'
       },
       {

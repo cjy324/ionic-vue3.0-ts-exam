@@ -12,8 +12,28 @@
         </ion-toolbar>
       </ion-header>
 
-      <ion-custom-body class="items-center">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates ullam neque, a ratione assumenda amet omnis eligendi accusamus deserunt dicta, maiores iusto qui sunt voluptas excepturi aliquam consequatur, harum sed.
+      <ion-custom-body class="justify-center">
+        <div class="logo-box text-center">
+          <span>
+            <span class="text-3xl">
+              <font-awesome-icon icon="lemon" />
+            </span>
+            <span class="font-bold text-3xl">
+              DESIGN LEMON
+            </span>
+          </span>
+        </div>
+        <form action="">
+          <div>
+
+          </div>
+          <div>
+
+          </div>
+          <div>
+
+          </div>
+        </form>
       </ion-custom-body>
     </ion-content>
   </ion-page>
