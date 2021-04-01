@@ -24,6 +24,11 @@ import { getMainApi, MainApi } from "@/apis";  //service를 통해 mainAPI를 �
     }
   
     getMemberThumbImgUrl(member: Member) {
+      // const originUrl = 'http://localhost:8024/common/genFile/file/member/' + member.id + '/common/attachment/1';
+      // //이미지를 리사이징해주는 유틸
+      // //사용하려면 작동을 시켜야 함..일단은 적용 보류(21.04.01)
+      // const url = 'http://localhost:8085/img?failWidth=40&failHeight=40&failText=U.U&width=40&height=40&url=' + originUrl;
+      // return url;
       return "https://i.pravatar.cc/45?img=13&k=" + member.id
     }
   }

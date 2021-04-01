@@ -76,25 +76,50 @@ export default  {
     //const mainApi = useMainApi();  //mainService를 통해 mainAPI를 가져오는 방식으로 변경
     const mainService = useMainService();
     
+    
+    //21.04.01
+    //then() 방식에서 async-await 방식으로 변경
 
-    function login(loginId: string, loginPw: string) {
-      mainService.member_authKey(loginId, loginPw) //mainService를 통해 mainAPI를 가져오는 방식으로 변경
-        .then(axiosResponse => {
+    // function login(loginId: string, loginPw: string) {
+    //   mainService.member_authKey(loginId, loginPw) //mainService를 통해 mainAPI를 가져오는 방식으로 변경
+    //     .then(axiosResponse => {
 
-          //ionic alert으로 변경
-          util.showAlert(axiosResponse.data.msg);
+    //       //ionic alert으로 변경
+    //       util.showAlert(axiosResponse.data.msg);
 
-          if ( axiosResponse.data.fail ) {
-            return;
-          }
-          const authKey = axiosResponse.data.body.authKey;
-          const loginedMember = axiosResponse.data.body.member;
+    //       if ( axiosResponse.data.fail ) {
+    //         return;
+    //       }
+    //       const authKey = axiosResponse.data.body.authKey;
+    //       const loginedMember = axiosResponse.data.body.member;
 
-          globalState.setLogined(authKey, loginedMember);
+    //       globalState.setLogined(authKey, loginedMember);
           
-          router.replace('/');
-        });
+    //       router.replace('/');
+    //     });
+    // }
+
+    //await??
+    //비동기식 로직을 동기식으로 바꿔주는 함수?
+    //await을 쓰기 위해선 await이 달린 함수를 감싸고 있는 부모 함수에 async를 붙여줘야 함
+    //기존 then()방식과 과정상 큰 차이는 없지만 아직 then의 개념은 익숙치 않아 await 방식으로 변경
+    
+    async function login(loginId: string, loginPw: string) {
+      
+      const axiosResponse = await mainService.member_authKey(loginId, loginPw)
+
+      util.showAlert(axiosResponse.data.msg);
+      if ( axiosResponse.data.fail ) {
+        return;
+      }
+      const authKey = axiosResponse.data.body.authKey;
+      const loginedMember = axiosResponse.data.body.member;
+      globalState.setLogined(authKey, loginedMember);
+      
+      router.replace('/');
     }
+
+
     function checkAndLogin() {
       if ( loginFormState.loginId.trim().length == 0 ) {
         alert('아이디를 입력해주세요.');
