@@ -22,14 +22,36 @@ import { getMainApi, MainApi } from "@/apis";  //service를 통해 mainAPI를 �
     member_authKey(loginId: string, loginPw: string) {
       return this.mainApi.member_authKey(loginId, loginPw);
     }
+
+    /* eslint-disable @typescript-eslint/camelcase */
+    article_list(boardId: number) {
+      return this.mainApi.article_list(boardId);
+    }
+
+
+    // //이미지를 리사이징해주는 유틸 적용
+    // //사용하려면 작동을 시켜야 함..일단은 적용 보류(21.04.01)
+    // /* eslint-disable @typescript-eslint/no-inferrable-types */
+    // getMemberThumbImgUrl(id: number, width: number = 40, height: number = 40) {
+
+    //   const originUrl = 'http://localhost:8021/common/genFile/file/member/' + id + '/common/attachment/1';
+    //   const url = `http://localhost:8085/img?failWidth=${width}&failHeight=${height}&failText=U.U&width=${width}&height=${height}&url=` + originUrl;
+    //   return url;
+    // }
+
+    // /* eslint-disable @typescript-eslint/no-inferrable-types */
+    // getArticleThumbImgUrl(id: number, width: number = 100, height: number = 100) {
+    //   const originUrl = 'http://localhost:8021/common/genFile/file/article/' + id + '/common/attachment/1';
+    //   const url = `http://localhost:8085/img?failWidth=${width}&failHeight=${height}&failText=U.U&width=${width}&height=${height}&url=` + originUrl;
+    //   return url;
+    //  }
   
-    getMemberThumbImgUrl(member: Member) {
-      // const originUrl = 'http://localhost:8024/common/genFile/file/member/' + member.id + '/common/attachment/1';
-      // //이미지를 리사이징해주는 유틸
-      // //사용하려면 작동을 시켜야 함..일단은 적용 보류(21.04.01)
-      // const url = 'http://localhost:8085/img?failWidth=40&failHeight=40&failText=U.U&width=40&height=40&url=' + originUrl;
-      // return url;
-      return "https://i.pravatar.cc/45?img=13&k=" + member.id
+    getMemberThumbImgUrl(id: number) {
+      return "https://i.pravatar.cc/45?img=13&k=" + id
+    }
+
+    getArticleThumbImgUrl(id: number) {
+      return "https://i.pravatar.cc/45?img=13&k=" + id
     }
   }
   
