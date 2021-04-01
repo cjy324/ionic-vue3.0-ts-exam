@@ -95,4 +95,4 @@ export const useGlobalState = (): GlobalState => inject(globalStateSymbol) as Gl
 //그리고
 //(): GlobalState => inject(globalStateSymbol) as GlobalState;와
 //createGlobalState는 결국 같은 의미
-export const useGlobalStateOnOutsideOfVue = createGlobalState;
+export const getGlobalState = createGlobalState;

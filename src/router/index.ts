@@ -1,6 +1,9 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router';
 import { RouteRecordRaw } from 'vue-router';
 import Tabs from '../views/Tabs.vue'
+import { getGlobalState } from '@/stores'
+
+const globalState = getGlobalState();
 
 const routes: Array<RouteRecordRaw> = [
   {     //앨리어싱
@@ -27,7 +30,7 @@ const routes: Array<RouteRecordRaw> = [
     children: [
       { 
         path: '', 
-        redirect: '/member/login'
+        redirect: () => globalState.isLogined ? '/member/myPage' : '/member/login'
       },
       {
         path: 'login',
