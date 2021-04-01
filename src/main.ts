@@ -25,6 +25,14 @@ import './theme/variables.css';
 /* tailwind css 불러오기 */
 import './index.css';
 
+/* FontAwesome 불러오기 */
+import { library } from '@fortawesome/fontawesome-svg-core'
+//원하는 아이콘이 있을때마다 불러오고 library에 추가해야 함...
+import { faHome, faUser, faList, faCog } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
+library.add(faHome, faUser, faList, faCog);
+
 // 전역상태 불러오기
 import { createGlobalState, globalStateSymbol } from "@/stores"
 import { createMainApi, mainApiSymbol } from "@/apis"
@@ -32,8 +40,11 @@ import { createMainApi, mainApiSymbol } from "@/apis"
 const app = createApp(App)
   .use(IonicVue)
   .use(router)
+  .component('font-awesome-icon', FontAwesomeIcon) //FontAwesome component 추가
   .provide(globalStateSymbol, createGlobalState())//provide(A, B) : B를 A라는 이름으로 등록하는 함수
   .provide(mainApiSymbol, createMainApi())
+  
+
   
 router.isReady().then(() => {
   app.mount('#app');
