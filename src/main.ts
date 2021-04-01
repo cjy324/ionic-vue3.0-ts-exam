@@ -22,7 +22,8 @@ import '@ionic/vue/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
-
+/* tailwind css 불러오기 */
+import './index.css';
 
 // 전역상태 불러오기
 import { createGlobalState, globalStateSymbol } from "@/stores"
