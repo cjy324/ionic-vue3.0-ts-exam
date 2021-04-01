@@ -54,6 +54,7 @@ import { useGlobalState } from '@/stores'
 import { reactive } from 'vue';
 import { useMainApi } from '@/apis';
 import { useRouter } from 'vue-router';
+import * as util from '@/utils';
 
 const useLoginFormState = () => {
   return reactive({
@@ -77,7 +78,10 @@ export default  {
     function login(loginId: string, loginPw: string) {
       mainApi.member_authKey(loginId, loginPw)
         .then(axiosResponse => {
-          alert(axiosResponse.data.msg);
+
+          //ionic alert으로 변경
+          util.showAlert(axiosResponse.data.msg);
+
           if ( axiosResponse.data.fail ) {
             return;
           }
