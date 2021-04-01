@@ -1,8 +1,9 @@
-export class MainService {
-  getMemberThumbImgUrl(member: Member) {
-    return "https://i.pravatar.cc/45?img=13&k=" + member.id
-  }
-}
+//service를 통해 mainAPI를 가져오는 방식으로 변경
+// export class MainService {
+//   getMemberThumbImgUrl(member: Member) {
+//     return "https://i.pravatar.cc/45?img=13&k=" + member.id
+//   }
+// }
 
 export interface GlobalState {
   loginedMember: Member;

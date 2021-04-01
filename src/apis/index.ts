@@ -143,7 +143,8 @@ export interface MainApi__common_genFile_doUpload__ResponseBody extends Base__Re
 }
 
 // http://localhost:8021/usr/ 와의 통신장치
-class MainApi extends HttpClient {
+// mainService에게 넘기기 위해 export 추가
+export class MainApi extends HttpClient {
   public constructor() {
     super(
       axios.create({
@@ -230,8 +231,16 @@ class MainApi extends HttpClient {
 
 export const mainApiSymbol = Symbol('mainApiSymbol');
 
+class Singleton {
+  static mainApi: MainApi;
+}
+
 export const createMainApi = () => {
-  return new MainApi();
+  if(Singleton.mainApi == null){
+    Singleton.mainApi = new MainApi();
+  }
+  return Singleton.mainApi;
 };
 
 export const useMainApi = (): MainApi => inject(mainApiSymbol) as MainApi; 
+export const getMainApi = createMainApi; 

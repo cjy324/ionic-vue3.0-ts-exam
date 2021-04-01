@@ -1,18 +1,45 @@
-import { MainService } from "@/types";
+//service를 통해 mainAPI를 가져오는 방식으로 변경
+//MVC패턴 같은 느낌
+//import { MainService } from "@/types";
+import { Member } from "@/types";
 import { inject } from "vue";
+import { getMainApi, MainApi } from "@/apis";  //service를 통해 mainAPI를 가져오는 방식으로 변경
 
-export const mainServiceSymbol = Symbol('globalState');
+  export class MainService {
+    private mainApi: MainApi;
+  
+    constructor() {
+      this.mainApi = getMainApi();
+    }
 
-class Singleton {
-  static mainService: MainService;
-}
-
-export const createMainService = () => {
-  if ( Singleton.mainService == null ) {
-    Singleton.mainService = new MainService();
+    //camelcase??
+    //일반적으로 객체 명명은 memberAuthKey 이런식으로 함
+    //이런 명명법을 camelcase라고함
+    //typescript에선 camelcase방식을 권장하지만 이것을 무시할 수도 있음(큰 문제는 없음)
+    //이를 무시하기 위해 아래와 같이 주석을 달아줌
+  
+    /* eslint-disable @typescript-eslint/camelcase */
+    member_authKey(loginId: string, loginPw: string) {
+      return this.mainApi.member_authKey(loginId, loginPw);
+    }
+  
+    getMemberThumbImgUrl(member: Member) {
+      return "https://i.pravatar.cc/45?img=13&k=" + member.id
+    }
   }
-
-  return Singleton.mainService;
-};
-
-export const useMainService = (): MainService => inject(mainServiceSymbol) as MainService;
+  
+  export const mainServiceSymbol = Symbol('globalState');
+  
+  class Singleton {
+    static mainService: MainService;
+  }
+  
+  export const createMainService = () => {
+    if ( Singleton.mainService == null ) {
+      Singleton.mainService = new MainService();
+    }
+  
+    return Singleton.mainService;
+  };
+  
+  export const useMainService = (): MainService => inject(mainServiceSymbol) as MainService;

@@ -52,7 +52,8 @@ import { IonCustomHeader, IonCustomBody, IonCustomLink} from '@/components/';
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonLabel, IonInput, IonItem, IonButton } from '@ionic/vue';
 import { useGlobalState } from '@/stores'
 import { reactive } from 'vue';
-import { useMainApi } from '@/apis';
+//import { useMainApi } from '@/apis';  //mainService를 통해 mainAPI를 가져오는 방식으로 변경
+import { useMainService } from '@/services';
 import { useRouter } from 'vue-router';
 import * as util from '@/utils';
 
@@ -72,11 +73,12 @@ export default  {
     const globalState = useGlobalState();
     const loginFormState = useLoginFormState();
     const router = useRouter();
-    const mainApi = useMainApi();
+    //const mainApi = useMainApi();  //mainService를 통해 mainAPI를 가져오는 방식으로 변경
+    const mainService = useMainService();
     
 
     function login(loginId: string, loginPw: string) {
-      mainApi.member_authKey(loginId, loginPw)
+      mainService.member_authKey(loginId, loginPw) //mainService를 통해 mainAPI를 가져오는 방식으로 변경
         .then(axiosResponse => {
 
           //ionic alert으로 변경
